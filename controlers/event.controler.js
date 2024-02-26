@@ -2,6 +2,7 @@ import Usage from "../modals/usage.modal.js";
 import axios from "axios";
 import convertSize from "convert-size";
 const handleEvent = async (type, data) => {
+  // console.log(type, data);
   if (type === "userCreated") {
     const newUser = new Usage({ userId: data.userId });
     await newUser.save();
