@@ -2,7 +2,7 @@ import Usage from "../modals/usage.modal.js";
 import axios from "axios";
 import convertSize from "convert-size";
 const handleEvent = async (type, data) => {
-  // console.log(type, data);
+  console.log(type, data);
   if (type === "userCreated") {
     const newUser = new Usage({ userId: data.userId });
     await newUser.save();
@@ -44,7 +44,8 @@ export const eventHandler = async (req, res, next) => {
   try {
     handleEvent(type, data);
 
-    res.status(201).json({ message: "event recieved" });
+    const myuser = await Usage.findOne({ userId: data.userId });
+    res.status(201).json({ message: "event recieved", updateuser: myuser });
   } catch (error) {
     return next(error);
   }
